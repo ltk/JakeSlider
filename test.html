@@ -18,7 +18,7 @@
 
 #container {
 	width:925px;
-	height:340px;
+	height:100px;
 	margin:11px 15px;
 	position: relative;
 	overflow:hidden;
@@ -27,7 +27,30 @@
 #container img {
 	position: absolute;
 	display:none;
+	z-index:10;
 }
+
+	.holder {
+		overflow:hidden;
+		height:0;
+		opacity:0;
+		position: absolute;
+		width:100%;
+		z-index: 30;
+	}
+
+	#container img.current { z-index: 20; display:block;	}
+
+	#container .holder img { position: absolute; display:block;}
+
+	.holder.top {bottom:50%;}
+	.holder.bottom {top:50%;}
+
+	.holder.top img {bottom: -50px;}
+	.holder.bottom img {top: -50px;}
+
+
+
 
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
@@ -37,9 +60,9 @@
 <body>
 <div id="banner-home"> 
 	<div id="container">
-		<img id="slide3" src="http://www.celadonspa.com/store/assets/images/animation/june_summer.jpg" /> 
-		<img id="slide2" src="http://www.celadonspa.com/store/assets/images/animation/june_jackblack.jpg" />
-		<img id="slide1" src="http://www.celadonspa.com/store/assets/images/animation/june_fathersday.jpg" />
+		<img src="http://www.placekitten.com/100/100" id="slide1" />
+		<img src="http://www.placekitten.com/100/101" id="slide2" />
+		<img src="http://www.placekitten.com/100/102" id="slide3" />
 	</div>
 </div>
 

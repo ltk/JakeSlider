@@ -89,6 +89,30 @@ var slider = {
 		});
 	},
 
+	animate_split_vertical : function(){
+	var img_html = this.next_slide().dom_el;
+	this.next_slide().dom_el.wrap('<div class="holder top">');
+	this.next_slide().dom_el.clone().insertAfter(".holder").wrap('<div class="holder bottom">');
+	this.current_slide.dom_el.addClass("current");
+
+
+		var i = 0;
+		$(".holder").animate({
+			height : "50%",
+			opacity: 1
+		}, "slow", function() {
+			i++;
+			console.log(i);
+			if (i == 2) {
+				slider.current_slide.dom_el.unwrap().addClass("current");
+				$(".holder.bottom").remove()
+				slider.prev_slide().dom_el.removeClass("current");
+			}
+		});
+
+
+	},
+
 	scrape_slides_from : function(containing_id) {
 
 	},
@@ -97,7 +121,7 @@ var slider = {
 		this.current_slide.dom_el.fadeIn();
 		// setInterval('slider.go_to("animate_right", slider.next_slide())', this.interval);
 		// setInterval(window["slider"]["go_to"]("animate_right", slider.next_slide()), this.interval);
-		setInterval(function() { slider.go_to("animate_right", slider.next_slide()) }, this.interval);
+		setInterval(function() { slider.go_to("animate_split_vertical", slider.next_slide()) }, this.interval);
 	}
 
 
@@ -106,10 +130,18 @@ var slider = {
 $(function() {
 	//	Add our slides to the slider
 	slider.container = $('#container');
-	slider.add_slide({ dom_el : $('#slide1') });
-	slider.add_slide({ dom_el : $('#slide2') });
-	slider.add_slide({ dom_el : $('#slide3') });
-
+	slider.add_slide({ 
+		dom_el : $('#slide1'),
+		title : "Slide 1"
+	});
+	slider.add_slide({
+		dom_el : $('#slide2'),
+		title : "Slide 2"
+	});
+	slider.add_slide({
+		dom_el : $('#slide3'),
+		title : "Slide 3"
+	});
 
 	params = {
 
@@ -158,4 +190,34 @@ $(function() {
 
 
 
+/*
+	.holder {
+		overflow:hidden;
+		height:0;
+		opacity:0;
+	}
 
+	.current {	}
+
+	.holder img { position: absolute;}
+
+	.holder.top {bottom:50%;}
+	.holder.bottom {top:50%;}
+
+	.holder.top img {bottom: 50%;}
+	.holder.bottom img {top: 50%;}
+*/
+
+/*
+	<div id="container">
+		<div class="holder top">
+			<img src="http://www.placekitten.com/100/100" />
+		</div>
+		<div class="holder bottom">
+			<img src="http://www.placekitten.com/100/100" />
+		</div>
+		<div class="current">
+			<img src="http://www.placekitten.com/101/101" />
+		</div>
+	</div>
+*/
