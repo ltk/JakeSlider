@@ -64,24 +64,67 @@
 	height: 307px;
 	float: right;
 	background: url(http://elginbutler.com/assets/images/animation/elgin_square.jpg);
+	text-align: center;
 }
 
 #logo-holder a {
-		line-height:1.6em;
-		margin:150px auto 0;
+	line-height:1.6em;
+	margin-top:142px;
+	display:none;
+	color:#931e14;
+	text-decoration:none;
+	font-family:'tahoma', sans-serif;
+	font-size:14px;
+	line-height: 1.6em;
 }
+
+#logo-holder a.current-message {
+	display:block;
+}
+
 
 #flash-nav {
 	margin:0;
-	padding:0;
+	padding:12px 0 15px;
+	height:20px;
+	clear: both;
+	text-align: center;
+
+	background: #fdfdfd; /* Old browsers */
+	background: -moz-linear-gradient(top, #fdfdfd 0%, #d3d3d3 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(100%,#d3d3d3)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fdfdfd 0%,#d3d3d3 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #fdfdfd 0%,#d3d3d3 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #fdfdfd 0%,#d3d3d3 100%); /* IE10+ */
+	background: linear-gradient(top, #fdfdfd 0%,#d3d3d3 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfdfd', endColorstr='#d3d3d3',GradientType=0 ); /* IE6-9 */
 }
 
 #flash-nav li {
-	float:left;
+	display:inline-block;
+	list-style: none;
 }
 
+#flash-nav li a{
+	text-decoration:none;
+	color:#9e9e9e;
+	margin-right:17px;
+	font-family:'tahoma', sans-serif;
+	font-size:12px;
+	line-height: 1.6em;
+}
+#flash-nav li.current-nav a { color: #931e14;}
 
+#flash-nav li a:before{
+	content:"|";
+	text-decoration:none;
+	color:#9e9e9e;
+	margin-right:17px;
+}
 
+#flash-nav li:first-child a:before{
+	content:"";
+}
 
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
@@ -101,7 +144,6 @@
 	</div>
 
 	<div id="logo-holder">
-		<a>Test Content</a>
 	</div>
 
 	<ul id="flash-nav">
