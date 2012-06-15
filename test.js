@@ -5,6 +5,7 @@ var slider = {
 	// Our slides
 	slides : new Array(),
 	container : null,
+	nav_container : null,
 
 	// Some Options
 	interval: 3000, // in ms
@@ -39,7 +40,7 @@ var slider = {
 		if (this.current_slide == this.last_slide) {
 			return this.first_slide;
 		} else {
-			return this.slides[this.slides.indexOf(this.current_slide) + 1] 
+			return this.slides[this.slides.indexOf(this.current_slide) + 1]
 		}
 	},
 
@@ -53,11 +54,15 @@ var slider = {
 
 	go_to : function(animation, slide) {
 		window["slider"][animation](this.current_slide);
+		
 		this.set_current_slide(slide);
+		this.remove_indicator();
+		this.set_indicator(slide);
+
 		return slide;
 	}, 
 
-	animate_left : function(slide){
+	animate_slide_left : function(slide){
 		var distance = this.container.outerWidth();
 		this.next_slide().dom_el.css({
 			left : distance,
@@ -73,7 +78,7 @@ var slider = {
 		});
 	},
 
-	animate_right : function(slide){
+	animate_slide_right : function(slide){
 		var distance = this.container.outerWidth();
 		this.next_slide().dom_el.css({
 			left : distance*-1,
@@ -90,27 +95,34 @@ var slider = {
 	},
 
 	animate_split_vertical : function(){
-	var img_html = this.next_slide().dom_el;
-	this.next_slide().dom_el.wrap('<div class="holder top">');
-	this.next_slide().dom_el.clone().insertAfter(".holder").wrap('<div class="holder bottom">');
-	this.current_slide.dom_el.addClass("current");
-
-
+		this.next_slide().dom_el.wrap('<div class="holder top">');
+		this.next_slide().dom_el.clone().insertAfter(".holder").wrap('<div class="holder bottom">');
+		this.current_slide.dom_el.addClass("current");
 		var i = 0;
 		$(".holder").animate({
 			height : "50%",
 			opacity: 1
 		}, "slow", function() {
 			i++;
-			console.log(i);
 			if (i == 2) {
 				slider.current_slide.dom_el.unwrap().addClass("current");
 				$(".holder.bottom").remove()
 				slider.prev_slide().dom_el.removeClass("current");
 			}
 		});
+	},
 
+	set_indicator : function(slide) {
+		 slide.nav_tab.addClass("current-nav");
+	},
 
+	remove_indicator : function() {
+		for(slide in this.slides) {
+			if(this.slides[slide] != this.current_slide){
+				this.slides[slide].nav_tab.removeClass("current-nav");
+			}
+		}
+		
 	},
 
 	scrape_slides_from : function(containing_id) {
@@ -119,8 +131,14 @@ var slider = {
 
 	run : function(params){
 		this.current_slide.dom_el.fadeIn();
-		// setInterval('slider.go_to("animate_right", slider.next_slide())', this.interval);
-		// setInterval(window["slider"]["go_to"]("animate_right", slider.next_slide()), this.interval);
+		this.nav_container = params.nav_container;
+
+		$.each(this.slides, function(index, value) {
+			slider.nav_container.append('<li id="jake-nav-slide-' + index + '" ' + (index == 0 ? 'class="current-nav"' : '') + '><a href="'+this.link+'">'+this.title+'</a></li>');
+			slider.slides[index].nav_tab = $("#jake-nav-slide-" + index);
+			$("#jake-nav-slide-0").addClass("current-nav")
+		});
+
 		setInterval(function() { slider.go_to("animate_split_vertical", slider.next_slide()) }, this.interval);
 	}
 
@@ -131,93 +149,46 @@ $(function() {
 	//	Add our slides to the slider
 	slider.container = $('#container');
 	slider.add_slide({ 
-		dom_el : $('#slide1'),
-		title : "Slide 1"
+		dom_el : $('#brick'),
+		title : "Glazed Brick",
+		link : "#"
 	});
 	slider.add_slide({
-		dom_el : $('#slide2'),
-		title : "Slide 2"
+		dom_el : $('#tile'),
+		title : "Strucural Glazed Tile",
+		link : "#"
 	});
 	slider.add_slide({
-		dom_el : $('#slide3'),
-		title : "Slide 3"
+		dom_el : $('#trim'),
+		title : "Trim Units",
+		link : "#"
+	});
+	slider.add_slide({
+		dom_el : $('#solar'),
+		title : "Solar Screen",
+		link : "#"
+	});
+	slider.add_slide({
+		dom_el : $('#quikbase'),
+		title : "Quik-Base",
+		link : "#"
+	});
+	slider.add_slide({
+		dom_el : $('#covebase'),
+		title : "Cove Base",
+		link : "#"
+	});
+	slider.add_slide({
+		dom_el : $('#cerrastone'),
+		title : "Cerrastone",
+		link : "#"
 	});
 
 	params = {
-
+		nav_container : $('#flash-nav')
 	};
 
 	slider.run(params);
 
-
-
-	/*slider.slides.push(
-	{
-		img : 'http://www.placekitten.com/100/100/',
-		link : 'http://www.thejakegroup.com/',
-		title : 'Slide 1',
-		duration: null,
-		dom_el : $('#slide1')
-	},
-	{
-		img : 'http://www.placekitten.com/101/101/',
-		link : 'http://www.thejakegroup.com/',
-		title : 'Slide 2',
-		duration: null,
-		dom_el : $('#slide2')
-	},
-	{
-		img : 'http://www.placekitten.com/102/102/',
-		link : 'http://www.thejakegroup.com/',
-		title : 'Slide 3',
-		duration: null,
-		dom_el : $('#slide3')
-	});*/
-
-
-
-/*	slider.next_slide().dom_el.stop().animate({
-		left: 0
-	}, 'slow');
-*/
-
-
-
-
-
-
 });
 
-
-
-/*
-	.holder {
-		overflow:hidden;
-		height:0;
-		opacity:0;
-	}
-
-	.current {	}
-
-	.holder img { position: absolute;}
-
-	.holder.top {bottom:50%;}
-	.holder.bottom {top:50%;}
-
-	.holder.top img {bottom: 50%;}
-	.holder.bottom img {top: 50%;}
-*/
-
-/*
-	<div id="container">
-		<div class="holder top">
-			<img src="http://www.placekitten.com/100/100" />
-		</div>
-		<div class="holder bottom">
-			<img src="http://www.placekitten.com/100/100" />
-		</div>
-		<div class="current">
-			<img src="http://www.placekitten.com/101/101" />
-		</div>
-	</div>
-*/

@@ -6,22 +6,27 @@
 	display:block;
 }
 
-#banner-home{
-	width:955px;
-	height:366px;
+#flash_holder{
+	width: 750px;
+	height: 350px;
+	float: left;
 	overflow:hidden;
-	float:left;
 	padding:0;
 	margin:0 0 15px;
 	position:relative;
 }
 
 #container {
-	width:925px;
-	height:100px;
+	width:437px;
+	height:307px;
 	margin:11px 15px;
 	position: relative;
 	overflow:hidden;
+
+/* Non essential */
+	float: left;
+	padding: 0;
+	margin: 0;
 }
 
 #container img {
@@ -43,11 +48,37 @@
 
 	#container .holder img { position: absolute; display:block;}
 
-	.holder.top {bottom:50%;}
-	.holder.bottom {top:50%;}
+	.holder.top {bottom:153px;}
+	.holder.bottom {top:154px;}
 
-	.holder.top img {bottom: -50px;}
-	.holder.bottom img {top: -50px;}
+	.holder.top img {bottom: -153px;}
+	.holder.bottom img {top: -154px;}
+
+
+
+
+/* 	Independent CSS */
+
+#logo-holder {
+	width: 307px;
+	height: 307px;
+	float: right;
+	background: url(http://elginbutler.com/assets/images/animation/elgin_square.jpg);
+}
+
+#logo-holder a {
+		line-height:1.6em;
+		margin:150px auto 0;
+}
+
+#flash-nav {
+	margin:0;
+	padding:0;
+}
+
+#flash-nav li {
+	float:left;
+}
 
 
 
@@ -58,12 +89,23 @@
 
 </head>
 <body>
-<div id="banner-home"> 
+<div id="flash_holder"> 
 	<div id="container">
-		<img src="http://www.placekitten.com/100/100" id="slide1" />
-		<img src="http://www.placekitten.com/100/101" id="slide2" />
-		<img src="http://www.placekitten.com/100/102" id="slide3" />
+		<img src="http://elginbutler.com/assets/images/animation/flash_01_brick.jpg" id="brick" />
+		<img src="http://elginbutler.com/assets/images/animation/flash_02_tile.jpg" id="tile" />
+		<img src="http://elginbutler.com/assets/images/animation/flash_03_trim.jpg" id="trim" />
+		<img src="http://elginbutler.com/assets/images/animation/flash_04_solar.jpg" id="solar" />
+		<img src="http://elginbutler.com/assets/images/animation/flash_05_quikbase.jpg" id="quikbase" />
+		<img src="http://elginbutler.com/assets/images/animation/flash_06_covebase.jpg" id="covebase" />
+		<img src="http://elginbutler.com/assets/images/animation/flash_07_cerrastone.jpg" id="cerrastone" />
 	</div>
+
+	<div id="logo-holder">
+		<a>Test Content</a>
+	</div>
+
+	<ul id="flash-nav">
+	</ul>
 </div>
 
 
